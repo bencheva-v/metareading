@@ -3,6 +3,22 @@
  */
 var db = require('../../config/sequelize');
 
+
+exports.add_points = function(new_points, event_string){
+  update_score_and_level(this.new_points);
+  log_event(new_points, event_string);
+};
+
+exports.update_score_and_level = function(new_points){
+  var current_score = db.User.Progress;
+  current_score += this.new_points;
+
+  
+};
+
+exports.log_event = function(points, text) {
+  //Create Gamification_Events insert
+};
 /**
  * Auth callback
  */
@@ -57,7 +73,7 @@ exports.create = function(req, res) {
     user.salt = user.makeSalt();
     user.hashedPassword = user.encryptPassword(req.body.password, user.salt);
     console.log('New User (local) : { id: ' + user.id + ' username: ' + user.username + ' }');
-    
+
     user.save().success(function(){
       req.login(user, function(err){
         if(err) return next(err);

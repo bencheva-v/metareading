@@ -10,7 +10,7 @@ var db = require('../../config/sequelize');
  */
 exports.event = function(req, res, next, id) {
     console.log('id => ' + id);
-    db.event.find({ where: {id: id}, include: [db.User]}).success(function(event){
+    db.Event.find({ where: {id: id}, include: [db.User]}).success(function(event){
         if(!event) {
             return next(new Error('Failed to load event ' + id));
         } else {
@@ -29,7 +29,7 @@ exports.create = function(req, res) {
     // augment the event by adding the UserId
     req.body.UserId = req.user.id;
     // save and return and instance of event on the res object.
-    db.event.create(req.body).success(function(event){
+    db.Event.create(req.body).success(function(event){
         if(!event){
             return res.send('users/signup', {errors: err});
         } else {
@@ -96,7 +96,7 @@ exports.show = function(req, res) {
  * List of events
  */
 exports.all = function(req, res) {
-    db.event.findAll({include: [db.User]}).success(function(events){
+    db.Event.findAll({include: [db.User]}).success(function(events){
         return res.jsonp(events);
     }).error(function(err){
         return res.render('error', {
