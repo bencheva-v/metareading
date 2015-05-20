@@ -1,6 +1,7 @@
 
 var users       = require('../app/controllers/users');
 var articles    = require('../app/controllers/articles');
+var events    = require('../app/controllers/events');
 var index       = require('../app/controllers/index');
 
 exports.init = function(app, passport, auth) {
@@ -67,8 +68,21 @@ exports.init = function(app, passport, auth) {
         .delete(auth.requiresLogin, auth.article.hasAuthorization, articles.destroy);
 
     // Finish with setting up the articleId param
-    // Note: the articles.article function will be called everytime then it will call the next function. 
+    // Note: the articles.article function will be called everytime then it will call the next function.
     app.param('articleId', articles.article);
+
+    // Events Routes
+    app.route('/events')
+    .get(events.all)
+    .post(auth.requiresLogin, events.create);
+    app.route('/events/:eventId')
+    .get(events.show)
+    .put(auth.requiresLogin, auth.article.hasAuthorization, events.update)
+    .delete(auth.requiresLogin, auth.article.hasAuthorization, events.destroy);
+
+    // Finish with setting up the articleId param
+    // Note: the articles.article function will be called everytime then it will call the next function.
+    app.param('eventsId', events.event);
 
     // Home route
     app.get('/', index.render);

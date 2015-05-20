@@ -2,3 +2,4 @@ angular.module('mean', ['ngCookies', 'ngResource', 'ngRoute', 'ui.bootstrap', 'u
 
 angular.module('mean.system', []);
 angular.module('mean.articles', []);
+angular.module('mean.events', []);

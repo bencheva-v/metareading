@@ -1,17 +1,17 @@
 module.exports = {
     // This is your MYSQL Database configuration
     db: {
-        name: "mean_relational",
-        password: "",
+        name: "metareading-dev",
+        password: null,
         username: "root"
     },
     app: {
-        name: "M*EAN Stack - Development"
+        name: "Metareading"
     },
     // You will need to get your own client id's before this will work properly
     facebook: {
-        clientID: "<CLIENT ID>",
-        clientSecret: "<CLIENT SECRET>",
+        clientID: "1106523276030671",
+        clientSecret: "7f86322d870165a405edd21da60ec6f4",
         callbackURL: "http://localhost:3000/auth/facebook/callback"
     },
     twitter: {

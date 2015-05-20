@@ -7,14 +7,27 @@ var crypto = require('crypto');
 
 module.exports = function(sequelize, DataTypes) {
 
-	var User = sequelize.define('User', 
+	var User = sequelize.define('User',
 		{
-			name: DataTypes.STRING,
-			email: DataTypes.STRING,
+			FirstName: DataTypes.STRING,
+			LastName: DataTypes.STRING,
+			Email: DataTypes.STRING,
+			Phone: DataTypes.STRING,
+			RefNumber: DataTypes.STRING,
+			CourseCity: DataTypes.STRING,
+			BirthCity: DataTypes.STRING,
+			BirthDate: DataTypes.STRING,
+			BirthHour: DataTypes.STRING,
+			CoursePreference: DataTypes.STRING,
+			Address: DataTypes.STRING,
+			EGN: DataTypes.STRING,
+			Progress: DataTypes.STRING,
+			Permission: DataTypes.STRING,
+			CVFilePath: DataTypes.STRING,
 			username: DataTypes.STRING,
 			hashedPassword: DataTypes.STRING,
 			provider: DataTypes.STRING,
-			salt: DataTypes.STRING, 
+			salt: DataTypes.STRING,
 			facebookUserId: DataTypes.INTEGER,
 			twitterUserId: DataTypes.INTEGER,
 			twitterKey: DataTypes.STRING,
@@ -25,7 +38,7 @@ module.exports = function(sequelize, DataTypes) {
 		{
 			instanceMethods: {
 				makeSalt: function() {
-					return crypto.randomBytes(16).toString('base64'); 
+					return crypto.randomBytes(16).toString('base64');
 				},
 				authenticate: function(plainText){
 					return this.encryptPassword(plainText, this.salt) === this.hashedPassword;
@@ -38,6 +51,10 @@ module.exports = function(sequelize, DataTypes) {
 			},
 			associate: function(models) {
 				User.hasMany(models.Article);
+				User.hasMany(models.User_Score);
+				User.hasMany(models.User_Company);
+				User.hasMany(models.User_Child);
+				User.hasMany(models.Event, {through: 'User_Events'});
 			}
 		}
 	);
