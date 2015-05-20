@@ -1,6 +1,6 @@
 /* jshint indent: 2 */
 
-module.exports = function(sequelize, DataTypes) {
+/*module.exports = function(sequelize, DataTypes) {
   var User_Events = sequelize.define('User_Events', {
     PricePaid: {
       type: DataTypes.INTEGER(11),
@@ -13,16 +13,12 @@ module.exports = function(sequelize, DataTypes) {
   });
 
   return User_Events;
-};
+}; */
 
 module.exports = function(sequelize, DataTypes) {
   var Event = sequelize.define('Event', {
     Name: {
       type: DataTypes.STRING,
-      allowNull: false
-    },
-    EventType_idEventType: {
-      type: DataTypes.INTEGER(11),
       allowNull: false
     },
     DateFrom: {
@@ -57,6 +53,8 @@ module.exports = function(sequelize, DataTypes) {
   {
     associate: function(models) {
       Event.hasMany(models.User, {through: 'User_Events'});
+      Event.belongsTo(models.Event_type);
+      Event.belongsTo(models.User);
     }
   });
 
