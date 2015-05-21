@@ -4,6 +4,7 @@ var articles    = require('../app/controllers/articles');
 var events    = require('../app/controllers/events');
 var index       = require('../app/controllers/index');
 
+
 exports.init = function(app, passport, auth) {
 
     console.log('Initializing Routes');
@@ -83,6 +84,8 @@ exports.init = function(app, passport, auth) {
     // Finish with setting up the articleId param
     // Note: the articles.article function will be called everytime then it will call the next function.
     app.param('eventsId', events.event);
+
+
 
     // Home route
     app.get('/', index.render);

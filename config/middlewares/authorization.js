@@ -31,3 +31,16 @@ exports.article = {
         next();
     }
 };
+
+/**
+* Event authorizations routing middleware
+@TODO: Check for User if has admin permissions (admin = 1)
+*/
+exports.event = {
+  hasAuthorization: function(req, res, next) {
+    if (req.user.admin != 1) {
+      return res.send(401, 'User is not authorized');
+    }
+    next();
+  }
+};

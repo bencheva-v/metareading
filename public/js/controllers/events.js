@@ -1,44 +1,54 @@
-angular.module('mean.events').controller('EventsController', ['$scope', '$routeParams', '$location', 'Global', 'events', function ($scope, $routeParams, $location, Global, events) {
+angular.module('mean.events').controller('EventsController',
+  ['$scope', '$routeParams', '$location', 'Global', 'Events',
+    function ($scope, $routeParams, $location, Global, Events) {
     $scope.global = Global;
 
     $scope.create = function() {
-        var event = new events({
-            Name: this.name
+        var Event = new Events({
+            Name: this.name,
+            DateFrom: this.dateFrom,
+            Price: this.price,
+            Venue: this.venue,
+            Description: this.Description
         });
 
-        event.$save(function(response) {
+        Event.$save(function(response) {
             console.log(response);
             $location.path("events/" + response.id);
         });
 
         this.name = "";
+        this.dateFrom = "";
+        this.Price = "";
+        this.venue = "";
+        this.Description = "";
     };
 
-    $scope.remove = function(event) {
-        if (event) {
-            event.$remove();
+    $scope.remove = function(Event) {
+        if (Event) {
+            Event.$remove();
 
             for (var i in $scope.events) {
-                if ($scope.events[i] == event) {
+                if ($scope.events[i] == Event) {
                     $scope.events.splice(i, 1);
                 }
             }
         }
         else {
-            $scope.event.$remove();
+            $scope.Event.$remove();
             $location.path('events');
         }
     };
 
     $scope.update = function() {
-        var event = $scope.event;
-        if (!event.updated) {
-            event.updated = [];
+        var Event = $scope.Event;
+        if (!Event.updated) {
+            Event.updated = [];
         }
-        event.updated.push(new Date().getTime());
+        Event.updated.push(new Date().getTime());
 
-        event.$update(function() {
-            $location.path('events/' + event.id);
+        Event.$update(function() {
+            $location.path('events/' + Event.id);
         });
     };
 
@@ -52,7 +62,7 @@ angular.module('mean.events').controller('EventsController', ['$scope', '$routeP
         events.get({
             eventId: $routeParams.eventId
         }, function(event) {
-            $scope.event = event;
+            $scope.Event = event;
         });
     };
 }]);

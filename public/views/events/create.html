@@ -1,15 +1,33 @@
 <section data-ng-controller="EventsController">
 	<form class="form-horizontal" data-ng-submit="create()">
 		<div class="control-group">
-			<label class="control-label" for="Name">Name</label>
+			<label class="control-label" for="Name">Име</label>
 			<div class="controls">
 				<input type="text" data-ng-model="name" id="name" placeholder="Name" required>
 			</div>
 		</div>
 		<div class="control-group">
-			<label class="control-label" for="content">Content</label>
+			<label class="control-label" for="Description">Описание</label>
 			<div class="controls">
-				<textarea data-ng-model="content" id="content" cols="30" rows="10" placeholder="Content"></textarea>
+				<input type="text" data-ng-model="Description" id="Description" placeholder="Description" required>
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label" for="dateFrom">От</label>
+			<div class="controls">
+				<input type="text" data-ng-model="dateFrom" id="dateFrom" placeholder="dateFrom" required>
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label" for="price">Цена</label>
+			<div class="controls">
+				<input type="text" data-ng-model="price" id="price" placeholder="price" required>
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label" for="venue">Venue</label>
+			<div class="controls">
+				<textarea data-ng-model="venue" id="venue" cols="10" rows="10" placeholder="Venue"></textarea>
 			</div>
 		</div>
 		<div class="control-group">

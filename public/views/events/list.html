@@ -4,7 +4,7 @@
 			<span>{{event.updatedAt | date:'medium'}}</span> /
 			<span>{{event.user.name}}</span>
 			<h2><a data-ng-href="#!/events/{{event.id}}">{{event.title}}</a></h2>
-			<div>{{event.content}}</div>
+			<div>{{event.Description}}</div>
 		</li>
 	</ul>
 	<h1 data-ng-hide="!events || events.length">No events yet. <br> Why don't you <a href="/#!/events/create">Create One</a>?</h1>

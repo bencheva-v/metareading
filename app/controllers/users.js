@@ -2,7 +2,36 @@
  * Module dependencies.
  */
 var db = require('../../config/sequelize');
+var MCapi = require('mailchimp-api');
+mc = new MCapi.Mailchimp('2118cb7aeb1f4e743f68c3586feebcbf-us2');
 
+
+/**
+ * Mailchimp user add to list
+ */
+ exports.addToMailChimp = function() {
+    mcReq = {
+     id: '21b69463ab',
+     email: { email: 'office@gsvision.eu' },
+     merge_vars: {
+       EMAIL: 'office@gsvision.eu',
+       FNAME: 'GS',
+       LNAME: 'VISION'
+     }
+   };
+
+   // submit subscription request to mail chimp
+   mc.lists.subscribe(mcReq, function(data) {
+     console.log(data);
+   }, function(error) {
+     console.log(error);
+   });
+ };
+
+
+/**
+ * Gamification methods
+ */
 
 exports.add_points = function(new_points, event_string){
   update_score_and_level(this.new_points);
@@ -13,7 +42,7 @@ exports.update_score_and_level = function(new_points){
   var current_score = db.User.Progress;
   current_score += this.new_points;
 
-  
+
 };
 
 exports.log_event = function(points, text) {
@@ -73,6 +102,25 @@ exports.create = function(req, res) {
     user.salt = user.makeSalt();
     user.hashedPassword = user.encryptPassword(req.body.password, user.salt);
     console.log('New User (local) : { id: ' + user.id + ' username: ' + user.username + ' }');
+
+    var mcReq = {
+      id: '31f93108c5',
+      email: { email: user.Email },
+      merge_vars: {
+        EMAIL: user.Email,
+        FNAME: user.FirstName,
+        LNAME: user.LastName
+      },
+      double_optin: false
+    };
+
+    // submit subscription request to mail chimp
+    mc.lists.subscribe(mcReq, function(data) {
+      console.log(data);
+    }, function(error) {
+      console.log(error);
+    });
+
 
     user.save().success(function(){
       req.login(user, function(err){

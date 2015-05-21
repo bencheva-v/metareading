@@ -5,7 +5,7 @@ var db = require('../../config/sequelize');
 
 /**
  * Find event by id
- * Note: This is called every time that the parameter :eventId is used in a URL.
+ * Note: req.body is called every time that the parameter :eventId is used in a URL.
  * Its purpose is to preload the event on the req object then call the next function.
  */
 exports.event = function(req, res, next, id) {
@@ -53,8 +53,11 @@ exports.update = function(req, res) {
     var event = req.event;
 
     event.updateAttributes({
-        title: req.body.title,
-        content: req.body.content
+        Name: req.body.name,
+        DateFrom: req.body.dateFrom,
+        Price: req.body.price,
+        Venue: req.body.venue,
+        Description: req.body.Description
     }).success(function(a){
         return res.jsonp(a);
     }).error(function(err){
