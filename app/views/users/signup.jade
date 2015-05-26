@@ -15,17 +15,17 @@ block auth
     .control-group
       label.control-label(for='email') Email
       .controls
-        input#email(type='text', name="Email", placeholder='Email')
+        input#email(type='text', name="Email", placeholder='Email', required=true)
 
     .control-group
       label.control-label(for='username') Username
       .controls
-        input#username(type='text', name="username", placeholder='Username')
+        input#username(type='text', name="username", placeholder='Username', required=true)
 
     .control-group
       label.control-label(for='password') Password
       .controls
-        input#password(type='password', name="password", placeholder='Password')
+        input#password(type='password', name="password", placeholder='Password', required=true)
 
     .form-actions
       button.btn.btn-primary(type='submit') Sign up

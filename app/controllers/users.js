@@ -8,7 +8,7 @@ mc = new MCapi.Mailchimp('2118cb7aeb1f4e743f68c3586feebcbf-us2');
 
 /**
  * Mailchimp user add to list
- */
+
  exports.addToMailChimp = function() {
     mcReq = {
      id: '21b69463ab',
@@ -27,7 +27,7 @@ mc = new MCapi.Mailchimp('2118cb7aeb1f4e743f68c3586feebcbf-us2');
      console.log(error);
    });
  };
-
+ */
 
 /**
  * Gamification methods
@@ -103,6 +103,9 @@ exports.create = function(req, res) {
     user.hashedPassword = user.encryptPassword(req.body.password, user.salt);
     console.log('New User (local) : { id: ' + user.id + ' username: ' + user.username + ' }');
 
+/**
+  Mailchimp opt-in
+*/
     var mcReq = {
       id: '31f93108c5',
       email: { email: user.Email },
