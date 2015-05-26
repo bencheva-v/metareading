@@ -18,7 +18,7 @@ angular.module('mean.articles').controller('ArticlesController', ['$scope', '$ro
 
     $scope.remove = function(article) {
         if (article) {
-            article.$remove();  
+            article.$remove();
 
             for (var i in $scope.articles) {
                 if ($scope.articles[i] == article) {

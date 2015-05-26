@@ -1,8 +1,8 @@
 <section data-ng-controller="ArticlesController" data-ng-init="findOne()">
     <span>{{article.updatedAt | date:'medium'}}</span>/
-    <span>{{article.user.name}}</span>
+    <span>{{article.user.username}}</span>
     <h2>{{article.title}}</h2>
-    <div data-ng-show="global.user.id == article.user.id">
+    <div data-ng-show="global.user.admin == 1">
         <a class="btn" href="/#!/articles/{{article.id}}/edit">Редактирай
         	<i class="icon-edit"></i>
         </a>
@@ -10,5 +10,5 @@
             <i class="icon-trash"></i>
         </a>
     </div>
-    <div>{{article.content}}</div>
+    <div ng-bind-html="article.content">{{article.content}}</div>
 </section>
