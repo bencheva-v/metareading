@@ -5,47 +5,23 @@ var db = require('../../config/sequelize');
 var MCapi = require('mailchimp-api');
 mc = new MCapi.Mailchimp('2118cb7aeb1f4e743f68c3586feebcbf-us2');
 
-
-/**
- * Mailchimp user add to list
-
- exports.addToMailChimp = function() {
-    mcReq = {
-     id: '21b69463ab',
-     email: { email: 'office@gsvision.eu' },
-     merge_vars: {
-       EMAIL: 'office@gsvision.eu',
-       FNAME: 'GS',
-       LNAME: 'VISION'
-     }
-   };
-
-   // submit subscription request to mail chimp
-   mc.lists.subscribe(mcReq, function(data) {
-     console.log(data);
-   }, function(error) {
-     console.log(error);
-   });
- };
- */
-
 /**
  * Gamification methods
  */
 
-exports.add_points = function(new_points, event_string){
+var add_points = exports.add_points = function(new_points, event_string){
   update_score_and_level(this.new_points);
-  log_event(new_points, event_string);
+  //log_event(new_points, event_string);
 };
 
-exports.update_score_and_level = function(new_points){
-  var current_score = db.User.Progress;
+var update_score_and_level = exports.update_score_and_level = function(new_points){
+  user_id = me();
+  var current_score = db.User.find({id: user_id});
   current_score += this.new_points;
-
-
+  console.log('Progress of user:' + user_id + 'changed to' + current_score + 'points');
 };
 
-exports.log_event = function(points, text) {
+var log_event = exports.log_event = function(points, text) {
   //Create Gamification_Events insert
 };
 /**
@@ -124,6 +100,8 @@ exports.create = function(req, res) {
       console.log(error);
     });
 
+  //  add_points(1, 'asd');
+    console.log(user);
 
     user.save().success(function(){
       req.login(user, function(err){
@@ -141,7 +119,7 @@ exports.create = function(req, res) {
 /**
  * Send User
  */
-exports.me = function(req, res) {
+var me = exports.me = function(req, res) {
     res.jsonp(req.user || null);
 };
 
